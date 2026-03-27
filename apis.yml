@@ -1,0 +1,37 @@
+aid: stormforge
+name: StormForge
+description: >-
+  StormForge provides machine learning-based Kubernetes resource optimization
+  for cost reduction and performance improvement.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - FinOps
+  - Kubernetes
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/stormforge/refs/heads/main/apis.yml
+created: '2026-03-27'
+modified: '2026-03-27'
+specificationVersion: '0.19'
+apis:
+  - aid: stormforge:stormforge
+    name: StormForge
+    description: >-
+      StormForge provides machine learning-based Kubernetes resource optimization
+      for cost reduction and performance improvement.
+    humanURL: https://www.stormforge.io/
+    tags:
+      - FinOps
+    properties:
+      - type: Documentation
+        url: https://docs.stormforge.io/
+      - type: Getting Started
+        url: https://docs.stormforge.io/
+common:
+  - type: Website
+    url: https://www.stormforge.io/
+  - type: Documentation
+    url: https://docs.stormforge.io/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
