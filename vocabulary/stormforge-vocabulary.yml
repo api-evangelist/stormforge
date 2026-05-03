@@ -1,0 +1,174 @@
+vocabulary:
+  name: StormForge Vocabulary
+  description: >-
+    Domain vocabulary for StormForge Kubernetes resource optimization, covering
+    rightsizing concepts, Kubernetes resource management, ML-based recommendations,
+    and FinOps cost optimization terminology.
+  version: '1.0'
+  created: '2026-05-02'
+  modified: '2026-05-02'
+
+domains:
+  - name: Kubernetes Resources
+    description: Core Kubernetes resource management concepts
+    terms:
+      - term: workload
+        definition: >-
+          A Kubernetes resource type that manages containerized application instances.
+          StormForge supports Deployments, StatefulSets, DaemonSets, ReplicaSets,
+          ReplicationControllers, and custom workload CRD types.
+      - term: container
+        definition: >-
+          A single runnable unit within a Kubernetes pod. Each container has
+          independent CPU and memory resource requests and limits, which StormForge
+          recommends optimizing.
+      - term: resource request
+        definition: >-
+          The minimum amount of CPU or memory guaranteed to a container by the
+          Kubernetes scheduler. Requests determine pod scheduling and node bin-packing.
+          StormForge recommendations primarily target requests.
+        aliases: [requests, resource.requests]
+      - term: resource limit
+        definition: >-
+          The maximum amount of CPU or memory a container is allowed to consume.
+          CPU limits throttle containers; exceeding memory limits causes OOM kills.
+        aliases: [limits, resource.limits]
+      - term: CPU (millicores)
+        definition: >-
+          Kubernetes unit of CPU where 1000m = 1 CPU core. StormForge recommends
+          CPU requests in millicores based on observed utilization patterns.
+        unit: millicores (m)
+      - term: memory (Mi/Gi)
+        definition: >-
+          Memory in mebibytes (Mi) or gibibytes (Gi). 1 GiB = 1024 MiB.
+          StormForge recommends memory values based on peak usage plus safety margin.
+        unit: mebibytes (Mi) or gibibytes (Gi)
+      - term: HPA
+        definition: >-
+          Horizontal Pod Autoscaler. Kubernetes object that automatically scales
+          the number of pod replicas based on observed CPU or custom metrics.
+          StormForge can recommend HPA min/max replicas and target utilization settings.
+        aliases: [Horizontal Pod Autoscaler]
+      - term: namespace
+        definition: >-
+          A Kubernetes logical partition within a cluster for organizing and isolating
+          resources. StormForge optimization can be scoped to specific namespaces.
+
+  - name: Optimization
+    description: StormForge-specific optimization and rightsizing concepts
+    terms:
+      - term: rightsizing
+        definition: >-
+          The process of adjusting container CPU and memory requests and limits to
+          match actual workload resource usage, eliminating over-provisioning waste
+          while ensuring adequate resources for performance.
+        aliases: [resource rightsizing, resource optimization]
+      - term: recommendation
+        definition: >-
+          A StormForge-generated set of suggested CPU and memory values for a workload's
+          containers, produced by ML analysis of historical usage patterns. Includes
+          projected cost savings and risk assessment.
+      - term: over-provisioning
+        definition: >-
+          Setting container resource requests significantly higher than actual usage,
+          causing cluster nodes to appear full while remaining underutilized. The
+          primary inefficiency targeted by StormForge.
+      - term: bin-packing
+        definition: >-
+          Kubernetes scheduler behavior that places pods onto nodes based on their
+          resource requests. Accurate requests from StormForge recommendations improve
+          node bin-packing efficiency.
+      - term: recommendation status
+        definition: >-
+          The lifecycle state of a StormForge recommendation.
+        values:
+          pending: "Generated but not yet reviewed"
+          approved: "Reviewed and approved, awaiting application"
+          applied: "Successfully applied to the cluster"
+          dismissed: "Rejected by the user"
+          expired: "Recommendation superseded by a newer one"
+      - term: impact
+        definition: >-
+          Projected metrics showing the cost savings and risk of applying a recommendation.
+          Includes CPU savings percentage, memory savings percentage, estimated monthly
+          savings in USD, and risk level assessment.
+      - term: risk level
+        definition: >-
+          StormForge's assessment of how aggressive a recommendation is relative to
+          observed usage patterns.
+        values:
+          low: "Conservative recommendation well within observed usage bounds"
+          medium: "Moderate reduction based on usage patterns"
+          high: "Aggressive reduction that may require monitoring"
+
+  - name: Platform
+    description: StormForge platform and deployment concepts
+    terms:
+      - term: StormForge Agent
+        definition: >-
+          The Kubernetes pod deployed in the stormforge-system namespace that
+          discovers workloads, collects resource usage metrics, and forwards data
+          to the StormForge SaaS platform for ML processing.
+      - term: Metrics Forwarder
+        definition: >-
+          Component of the StormForge agent that collects Kubernetes observability
+          metrics (CPU, memory usage over time) and sends them to the StormForge
+          cloud platform.
+      - term: StormForge Applier
+        definition: >-
+          Optional StormForge component that automatically applies approved
+          recommendations to the cluster without manual intervention.
+      - term: observation window
+        definition: >-
+          The time period of historical resource usage data collected by StormForge
+          for generating recommendations. Longer windows produce more accurate recommendations.
+      - term: patch
+        definition: >-
+          A Kubernetes strategic merge patch or JSON patch exported from StormForge
+          containing recommended resource values. Used for GitOps workflows where
+          cluster changes are managed via pull requests.
+
+  - name: FinOps
+    description: Cloud financial management and cost optimization concepts
+    terms:
+      - term: FinOps
+        definition: >-
+          A cloud financial management discipline and practice that enables engineering,
+          finance, and business teams to collaborate on data-driven cloud spending decisions.
+          StormForge supports FinOps practices by providing Kubernetes cost optimization.
+      - term: cloud cost optimization
+        definition: >-
+          Reducing public cloud infrastructure costs by identifying and eliminating
+          resource waste. For Kubernetes, this primarily involves rightsizing container
+          resources and improving node utilization.
+      - term: idle resources
+        definition: >-
+          CPU and memory reserved by containers (via requests) but not actively used.
+          Idle resources increase cloud costs without providing value.
+      - term: cost per pod
+        definition: >-
+          Allocated cost for a Kubernetes pod, calculated from the node's cost and
+          the pod's proportion of the node's resources. StormForge helps reduce
+          cost per pod through rightsizing.
+
+  - name: Integrations
+    description: StormForge integration concepts
+    terms:
+      - term: Karpenter
+        definition: >-
+          An open-source Kubernetes node provisioner that automatically provisions
+          the right compute resources for your workloads. StormForge integrates with
+          Karpenter for combined node and container-level optimization.
+      - term: GitOps
+        definition: >-
+          An operational model using Git as the single source of truth for
+          infrastructure configuration. StormForge recommendations can be exported
+          as Kubernetes manifests and applied via GitOps pipelines.
+      - term: Argo CD
+        definition: >-
+          A declarative GitOps continuous delivery tool for Kubernetes. StormForge
+          recommendations integrate with Argo CD workflows via patch files.
+      - term: MCP server
+        definition: >-
+          Model Context Protocol server provided by StormForge CLI enabling AI
+          assistants to query cluster data, workload information, and recommendations.

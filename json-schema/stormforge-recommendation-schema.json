@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/stormforge/json-schema/stormforge-recommendation-schema.json",
+  "title": "StormForge Recommendation",
+  "description": "Schema for a StormForge Kubernetes workload resource optimization recommendation. Contains suggested CPU and memory request and limit values for containers in a workload, along with predicted impact metrics.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for this recommendation"
+    },
+    "clusterName": {
+      "type": "string",
+      "description": "Name of the Kubernetes cluster containing the workload"
+    },
+    "namespace": {
+      "type": "string",
+      "description": "Kubernetes namespace containing the workload"
+    },
+    "workloadName": {
+      "type": "string",
+      "description": "Name of the Kubernetes workload (Deployment, StatefulSet, etc.)"
+    },
+    "workloadKind": {
+      "type": "string",
+      "enum": ["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet", "ReplicationController"],
+      "description": "Kubernetes resource kind of the workload"
+    },
+    "containers": {
+      "type": "array",
+      "description": "Container-level resource recommendations",
+      "items": {
+        "$ref": "#/$defs/ContainerRecommendation"
+      }
+    },
+    "impact": {
+      "$ref": "#/$defs/ImpactMetrics"
+    },
+    "hpa": {
+      "$ref": "#/$defs/HPARecommendation"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "approved", "applied", "dismissed", "expired"],
+      "description": "Current status of the recommendation"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this recommendation was generated"
+    },
+    "appliedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this recommendation was applied"
+    }
+  },
+  "required": ["clusterName", "namespace", "workloadName", "workloadKind", "containers"],
+  "$defs": {
+    "ResourceQuantity": {
+      "type": "string",
+      "description": "Kubernetes resource quantity. CPU in millicores (e.g. '100m', '1') or memory in bytes with suffix (e.g. '256Mi', '1Gi')"
+    },
+    "ContainerRecommendation": {
+      "type": "object",
+      "description": "Resource recommendations for a single container",
+      "required": ["containerName"],
+      "properties": {
+        "containerName": {
+          "type": "string",
+          "description": "Name of the container within the pod spec"
+        },
+        "requests": {
+          "type": "object",
+          "description": "Recommended resource requests",
+          "properties": {
+            "cpu": { "$ref": "#/$defs/ResourceQuantity" },
+            "memory": { "$ref": "#/$defs/ResourceQuantity" }
+          }
+        },
+        "limits": {
+          "type": "object",
+          "description": "Recommended resource limits",
+          "properties": {
+            "cpu": { "$ref": "#/$defs/ResourceQuantity" },
+            "memory": { "$ref": "#/$defs/ResourceQuantity" }
+          }
+        },
+        "current": {
+          "type": "object",
+          "description": "Current resource configuration for comparison",
+          "properties": {
+            "requests": {
+              "type": "object",
+              "properties": {
+                "cpu": { "$ref": "#/$defs/ResourceQuantity" },
+                "memory": { "$ref": "#/$defs/ResourceQuantity" }
+              }
+            },
+            "limits": {
+              "type": "object",
+              "properties": {
+                "cpu": { "$ref": "#/$defs/ResourceQuantity" },
+                "memory": { "$ref": "#/$defs/ResourceQuantity" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ImpactMetrics": {
+      "type": "object",
+      "description": "Projected cost and performance impact of applying the recommendation",
+      "properties": {
+        "cpuSavingsPercent": {
+          "type": "number",
+          "description": "Projected percentage reduction in CPU resource requests"
+        },
+        "memorySavingsPercent": {
+          "type": "number",
+          "description": "Projected percentage reduction in memory resource requests"
+        },
+        "estimatedMonthlySavingsUSD": {
+          "type": "number",
+          "description": "Estimated monthly cost savings in US dollars"
+        },
+        "riskLevel": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Risk level of applying this recommendation based on historical usage patterns"
+        }
+      }
+    },
+    "HPARecommendation": {
+      "type": "object",
+      "description": "Horizontal Pod Autoscaler configuration recommendation",
+      "properties": {
+        "minReplicas": {
+          "type": "integer",
+          "description": "Recommended minimum replica count"
+        },
+        "maxReplicas": {
+          "type": "integer",
+          "description": "Recommended maximum replica count"
+        },
+        "targetCPUUtilizationPercentage": {
+          "type": "integer",
+          "description": "Recommended target CPU utilization percentage for HPA scaling"
+        }
+      }
+    }
+  }
+}

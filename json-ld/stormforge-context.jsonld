@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@vocab": "https://stormforge.io/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "k8s": "https://kubernetes.io/schema/",
+    "KubernetesCluster": "https://stormforge.io/schema/KubernetesCluster",
+    "Workload": "https://stormforge.io/schema/Workload",
+    "Recommendation": "https://stormforge.io/schema/Recommendation",
+    "ContainerSpec": "https://stormforge.io/schema/ContainerSpec",
+    "ResourceRequirements": "https://stormforge.io/schema/ResourceRequirements",
+    "ImpactMetrics": "https://stormforge.io/schema/ImpactMetrics",
+    "clusterName": {
+      "@id": "https://stormforge.io/schema/clusterName"
+    },
+    "namespace": {
+      "@id": "k8s:namespace"
+    },
+    "workloadName": {
+      "@id": "schema:name"
+    },
+    "workloadKind": {
+      "@id": "k8s:kind"
+    },
+    "containerName": {
+      "@id": "schema:name"
+    },
+    "cpuRequest": {
+      "@id": "https://stormforge.io/schema/cpuRequest"
+    },
+    "memoryRequest": {
+      "@id": "https://stormforge.io/schema/memoryRequest"
+    },
+    "cpuLimit": {
+      "@id": "https://stormforge.io/schema/cpuLimit"
+    },
+    "memoryLimit": {
+      "@id": "https://stormforge.io/schema/memoryLimit"
+    },
+    "cpuSavingsPercent": {
+      "@id": "https://stormforge.io/schema/cpuSavingsPercent",
+      "@type": "xsd:decimal"
+    },
+    "memorySavingsPercent": {
+      "@id": "https://stormforge.io/schema/memorySavingsPercent",
+      "@type": "xsd:decimal"
+    },
+    "estimatedMonthlySavingsUSD": {
+      "@id": "schema:price",
+      "@type": "xsd:decimal"
+    },
+    "riskLevel": {
+      "@id": "https://stormforge.io/schema/riskLevel"
+    },
+    "status": {
+      "@id": "schema:status"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "appliedAt": {
+      "@id": "https://stormforge.io/schema/appliedAt",
+      "@type": "xsd:dateTime"
+    },
+    "hpa": {
+      "@id": "https://stormforge.io/schema/horizontalPodAutoscaler"
+    },
+    "minReplicas": {
+      "@id": "https://stormforge.io/schema/minReplicas",
+      "@type": "xsd:integer"
+    },
+    "maxReplicas": {
+      "@id": "https://stormforge.io/schema/maxReplicas",
+      "@type": "xsd:integer"
+    }
+  }
+}

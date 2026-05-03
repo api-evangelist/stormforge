@@ -1,0 +1,86 @@
+{
+  "title": "StormForge Recommendation Structure",
+  "description": "Field documentation for StormForge Kubernetes rightsizing recommendation objects",
+  "type": "object",
+  "fields": [
+    { "name": "id", "type": "string", "description": "Unique recommendation identifier" },
+    { "name": "clusterName", "type": "string", "description": "Target Kubernetes cluster name", "required": true },
+    { "name": "namespace", "type": "string", "description": "Kubernetes namespace", "required": true },
+    { "name": "workloadName", "type": "string", "description": "Workload resource name", "required": true },
+    {
+      "name": "workloadKind",
+      "type": "string",
+      "description": "Kubernetes resource kind",
+      "required": true,
+      "values": ["Deployment", "StatefulSet", "DaemonSet", "ReplicaSet", "ReplicationController"]
+    },
+    {
+      "name": "containers",
+      "type": "array",
+      "description": "Per-container resource recommendations",
+      "required": true,
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "containerName", "type": "string", "description": "Container name in pod spec", "required": true },
+          {
+            "name": "requests",
+            "type": "object",
+            "description": "Recommended resource requests (guaranteed resources)",
+            "fields": [
+              { "name": "cpu", "type": "string", "description": "CPU in millicores (e.g. '100m') or cores (e.g. '0.5')" },
+              { "name": "memory", "type": "string", "description": "Memory with unit suffix (e.g. '256Mi', '1Gi')" }
+            ]
+          },
+          {
+            "name": "limits",
+            "type": "object",
+            "description": "Recommended resource limits (maximum allowed resources)",
+            "fields": [
+              { "name": "cpu", "type": "string", "description": "CPU limit" },
+              { "name": "memory", "type": "string", "description": "Memory limit" }
+            ]
+          },
+          {
+            "name": "current",
+            "type": "object",
+            "description": "Current resource configuration for comparison",
+            "fields": [
+              { "name": "requests", "type": "object", "description": "Current resource requests" },
+              { "name": "limits", "type": "object", "description": "Current resource limits" }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "impact",
+      "type": "object",
+      "description": "Projected cost and performance impact metrics",
+      "fields": [
+        { "name": "cpuSavingsPercent", "type": "number", "description": "Projected CPU reduction percentage" },
+        { "name": "memorySavingsPercent", "type": "number", "description": "Projected memory reduction percentage" },
+        { "name": "estimatedMonthlySavingsUSD", "type": "number", "description": "Estimated monthly cost savings in USD" },
+        { "name": "riskLevel", "type": "string", "description": "Risk level: low, medium, or high", "values": ["low", "medium", "high"] }
+      ]
+    },
+    {
+      "name": "hpa",
+      "type": "object",
+      "description": "Horizontal Pod Autoscaler recommendation (when HPA is configured)",
+      "fields": [
+        { "name": "minReplicas", "type": "integer", "description": "Recommended minimum replicas" },
+        { "name": "maxReplicas", "type": "integer", "description": "Recommended maximum replicas" },
+        { "name": "targetCPUUtilizationPercentage", "type": "integer", "description": "Target CPU for HPA scaling trigger" }
+      ]
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "description": "Recommendation lifecycle status",
+      "values": ["pending", "approved", "applied", "dismissed", "expired"]
+    },
+    { "name": "createdAt", "type": "string", "format": "date-time", "description": "When recommendation was generated" },
+    { "name": "appliedAt", "type": "string", "format": "date-time", "description": "When recommendation was applied" }
+  ]
+}
