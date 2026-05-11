@@ -99,6 +99,16 @@ common:
     url: https://docs.stormforge.io/docs/sandbox/
   - type: FinOps
     url: https://www.finops.org/members/stormforge/
+  - type: Integrations
+    url: https://stormforge.io/company/partners/
+integrations:
+  - name: Scene fist bump
+  - name: Icon collage what partners get
+  - name: Footer logo cncf member silver color
+  - name: Footer logo fin ops foundation member
+  - name: Footer logo aicpa soc
+  - name: The Gartner Cool Vendor 2023 badge
+  - name: Footer logo aws marketplace
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
