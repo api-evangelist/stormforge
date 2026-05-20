@@ -77,6 +77,8 @@ apis:
       - type: Homebrew
         url: https://github.com/thestormforge/homebrew-tap
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/stormforge
   - type: Website
     url: https://www.stormforge.io/
   - type: Documentation
