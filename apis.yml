@@ -103,6 +103,8 @@ common:
     url: https://www.finops.org/members/stormforge/
   - type: Integrations
     url: https://stormforge.io/company/partners/
+  - type: LLMsTxt
+    url: https://docs.stormforge.io/llms.txt
 integrations:
   - name: Scene fist bump
   - name: Icon collage what partners get
