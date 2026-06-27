@@ -51,7 +51,7 @@ apis:
         url: https://docs.stormforge.io/docs/get-started/
       - type: Pricing
         url: https://www.stormforge.io/pricing/
-      - type: SignUp
+      - type: Signup
         url: https://app.stormforge.io/
       - type: HelmChart
         url: https://github.com/thestormforge/helm-charts
@@ -93,7 +93,7 @@ common:
     url: https://www.stormforge.io/contact/
   - type: GettingStarted
     url: https://docs.stormforge.io/docs/get-started/
-  - type: SignUp
+  - type: Signup
     url: https://app.stormforge.io/
   - type: GitHubOrg
     url: https://github.com/thestormforge
@@ -103,7 +103,7 @@ common:
     url: https://www.finops.org/members/stormforge/
   - type: Integrations
     url: https://stormforge.io/company/partners/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.stormforge.io/llms.txt
 integrations:
   - name: Scene fist bump

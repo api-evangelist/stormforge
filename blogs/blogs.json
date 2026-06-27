@@ -3,16 +3,19 @@
   "feeds": [
     {
       "source": "https://www.stormforge.io/blog/",
-      "feed_url": "https://www.stormforge.io/blog/",
+      "feed_url": "https://www.stormforge.io/blog/feed/",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "discovered"
     },
     {
       "source": "https://www.stormforge.io/pricing/",
-      "error": "HTTPError"
+      "feed_url": "https://www.stormforge.io/pricing/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "fetched": "2026-06-14T20:42:17Z",
+  "fetched": "2026-06-27T12:03:07Z",
   "post_count": 0
 }
