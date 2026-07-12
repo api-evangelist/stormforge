@@ -77,6 +77,8 @@ apis:
       - type: Homebrew
         url: https://github.com/thestormforge/homebrew-tap
 common:
+  - type: DomainSecurity
+    url: security/stormforge-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/stormforge
   - type: Website
