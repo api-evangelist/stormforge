@@ -1,0 +1,94 @@
+# StormForge
+
+> Kubernetes resource optimization using machine learning. StormForge observes workload metrics and generates CPU/memory rightsizing recommendations to reduce cloud spend and improve workload reliability — without manual tuning.
+
+StormForge installs two components on your Kubernetes clusters: an **Agent** that collects resource utilization metrics with read-only permissions, and an **Applier** that can automatically apply recommendations on a configurable schedule (auto-deploy must be explicitly enabled). A cloud ML backend analyzes the metrics and generates recommendations for Deployments, StatefulSets, DaemonSets, ReplicaSets, ReplicationControllers, HPAs, and custom CRD-based workloads.
+
+Key concepts: a **recommendation** is an ML-derived set of optimal CPU/memory requests and limits (optionally including HPA target utilization, Java max heap, and pod scheduling node affinity) for a **workload**; the **optimization goal** (Savings, Balanced, Reliability) shifts the cost/reliability tradeoff; the **schedule** (default: daily) controls when recommendations are generated and the **validity period** controls how long they remain usable; the **learning period** (default: 7 days) must pass before a new workload's recommendations can be auto-deployed; **auto-deploy** is the setting that enables automated application of recommendations.
+
+## Core
+
+- [Get started](https://docs.stormforge.io/docs/get-started/): Prerequisites, account setup, and orientation to the documentation
+- [Quickstart](https://docs.stormforge.io/docs/get-started/quickstart/): Install StormForge and get preliminary recommendations in under 10 minutes
+- [Concepts](https://docs.stormforge.io/docs/concepts/): Cluster, workload, Agent, Applier, schedule, learning period, validity period, and recommendation terminology
+- [Architecture](https://docs.stormforge.io/docs/concepts/architecture/): Which components run in-cluster (Agent, Applier, Forwarder) vs. out-of-cluster (StormForge cloud, CLI, UI)
+- [Best practices](https://docs.stormforge.io/docs/reference/best-practices/): Tips to get the most value from StormForge
+- [Troubleshooting](https://docs.stormforge.io/docs/reference/troubleshooting/): Common questions, errors, and warnings for Agent, Applier, installation, and workloads
+
+## Installation
+
+- [Basic installation](https://docs.stormforge.io/docs/installation/install/): Install StormForge on a Kubernetes cluster using Helm
+- [Advanced installation](https://docs.stormforge.io/docs/installation/install-adv/): Proxy servers, private registries, and enterprise network scenarios
+- [Install as EKS add-on](https://docs.stormforge.io/docs/installation/install-eks-addon/): Install via AWS Marketplace EKS add-on
+- [Install on OpenShift](https://docs.stormforge.io/docs/installation/install-openshift/): OpenShift Container Platform 4.x installation
+- [Agent configuration](https://docs.stormforge.io/docs/installation/cluster-agent-config/): Configure the Agent and shared top-level Helm parameters (namespace scoping, pod priority, private registries)
+- [Applier configuration](https://docs.stormforge.io/docs/installation/applier-config/): Configure Applier behavior, RBAC, and apply methods
+- [Forwarder configuration](https://docs.stormforge.io/docs/installation/forwarder-config/): Configure the StormForge Forwarder component
+- [Webhook configuration](https://docs.stormforge.io/docs/installation/webhook-config/): Configure the webhook used by the Applier to apply recommendations at admission time
+- [Cluster defaults templates](https://docs.stormforge.io/docs/installation/cluster-defaults-templates/): ConfigMap templates for setting cluster-level optimization defaults
+- [Upgrade](https://docs.stormforge.io/docs/installation/upgrade/): Upgrade StormForge to a newer version
+- [Migrate v2 to v3](https://docs.stormforge.io/docs/installation/migration/): Migrate from separate Agent and Applier Helm charts to the unified StormForge chart
+- [Uninstall](https://docs.stormforge.io/docs/installation/uninstall/): Remove StormForge from a cluster
+
+## Recommendations
+
+- [Recommendations overview](https://docs.stormforge.io/docs/recommendations/): How StormForge generates recommendations — preliminary recommendations, learning period, and HPA support
+- [View recommendations](https://docs.stormforge.io/docs/recommendations/view/): Review recommendations in the StormForge UI
+- [Apply recommendations](https://docs.stormforge.io/docs/recommendations/apply/): Apply recommendations manually or via auto-deploy
+- [Generate on demand](https://docs.stormforge.io/docs/recommendations/generate/): Trigger recommendation generation outside the normal schedule
+- [Requests and limits](https://docs.stormforge.io/docs/recommendations/requests-and-limits/): How StormForge calculates CPU and memory requests and limits
+- [Java heap size](https://docs.stormforge.io/docs/recommendations/java/): How StormForge generates max heap size recommendations for Java workloads
+- [Workload groups](https://docs.stormforge.io/docs/recommendations/workload-groups/): Aggregate metrics from related workloads for better recommendations on split or low-traffic workloads
+- [Pod scheduling recommendations](https://docs.stormforge.io/docs/recommendations/pod-scheduling/): Node affinity recommendations for pod placement
+- [Custom workload kinds](https://docs.stormforge.io/docs/recommendations/custom-workload-kinds/): Configure which Kubernetes kinds StormForge recognizes as workloads, including CRDs and operator-owned workloads
+
+## Configure
+
+- [Configure overview](https://docs.stormforge.io/docs/configure/): How optimization settings are organized and how precedence works
+- [Configure optimization settings](https://docs.stormforge.io/docs/configure/configure-opt-settings/): Step-by-step guide to configuring optimization at cluster, namespace, or workload level
+- [Cluster defaults](https://docs.stormforge.io/docs/configure/cluster-defaults/): Set default optimization configuration for an entire cluster
+- [Annotate namespaces](https://docs.stormforge.io/docs/configure/annotate-namespaces/): Apply optimization settings to all workloads in a namespace via annotations
+- [Annotate workloads](https://docs.stormforge.io/docs/configure/annotate-workloads/): Apply optimization settings to individual workloads via annotations
+- [Optimization configurations](https://docs.stormforge.io/docs/configure/optimization-configurations/): Define and reuse named optimization configuration profiles
+
+## Settings
+
+- [Settings index](https://docs.stormforge.io/docs/configure/settings/): Index of all available optimization settings
+- [Apply settings](https://docs.stormforge.io/docs/configure/settings/apply-settings/): Auto-deploy, learning period, apply method, and deployment controls
+- [CPU and memory settings](https://docs.stormforge.io/docs/configure/settings/cpu-and-memory/): CPU and memory request/limit bounds and configuration
+- [Schedule settings](https://docs.stormforge.io/docs/configure/settings/schedule/): Recommendation generation schedule and validity period
+- [Optimization goal](https://docs.stormforge.io/docs/configure/settings/goal/): Tune the savings vs. reliability tradeoff
+- [HPA settings](https://docs.stormforge.io/docs/configure/settings/hpa/): Horizontal Pod Autoscaler target utilization recommendation settings
+- [Reliability response settings](https://docs.stormforge.io/docs/configure/settings/reliability/): Configure how StormForge responds to reliability signals
+- [Runtime settings](https://docs.stormforge.io/docs/configure/settings/runtime/): Runtime environment settings (for example, Java)
+- [Pod scheduling settings](https://docs.stormforge.io/docs/configure/settings/pod-scheduling/): Node affinity configuration for pod scheduling recommendations
+- [Annotation settings](https://docs.stormforge.io/docs/configure/settings/annotations/): Full reference for Kubernetes annotation-based configuration
+
+## Reference
+
+- [Workload recommendation statuses](https://docs.stormforge.io/docs/reference/statuses/): What each recommendation status icon and state means
+- [Applier Kubernetes Events](https://docs.stormforge.io/docs/reference/applier-events/): Kubernetes Events emitted by the Applier — what they mean, when they fire, and how to monitor with kubectl, Lens, or k9s
+- [User roles](https://docs.stormforge.io/docs/reference/user-roles/): The four StormForge user roles and what each can do
+- [Security FAQ](https://docs.stormforge.io/docs/reference/faq-security/): Data collection, SOC 2 compliance, data retention, SSO support, and required allowlist URLs
+
+## CLI
+
+- [StormForge CLI](https://docs.stormforge.io/docs/stormforge-cli/): Install and authenticate the StormForge CLI
+- [Common CLI workflows](https://docs.stormforge.io/docs/stormforge-cli/common-cli-workflows/): Common tasks and usage patterns
+- [CLI reference](https://docs.stormforge.io/docs/stormforge-cli/reference/): Full command reference
+- [StormForge MCP server](https://docs.stormforge.io/docs/stormforge-cli/mcp-server/): Configure the StormForge CLI MCP server and connect an AI agent to StormForge
+
+## Guides
+
+- [Try the sandbox](https://docs.stormforge.io/docs/guides/sandbox/): Explore StormForge with view-only access — no installation required
+- [Try a sample app](https://docs.stormforge.io/docs/guides/showcase-app/): Experiment with StormForge using a load-generating sample app on your own cluster
+- [Manage workloads](https://docs.stormforge.io/docs/guides/workload-management/): Add, delete, and restore workloads; pause optimization
+- [StormForge and Argo CD](https://docs.stormforge.io/docs/guides/argo-cd/): Use StormForge alongside Argo CD without field manager conflicts
+- [StormForge and Flux](https://docs.stormforge.io/docs/guides/flux/): Use StormForge alongside Flux — webhook apply method and drift detection ignore rules for HPAs
+- [Monitor StormForge health](https://docs.stormforge.io/docs/guides/monitoring-health-optlive/): View status metrics and logs for operational health
+- [Configure Applier alerts](https://docs.stormforge.io/docs/guides/applier-alerts/): Send HTTP webhook notifications when the Applier deploys a recommendation
+- [Manage secrets](https://docs.stormforge.io/docs/guides/manage-secrets/): Use a third-party credential manager instead of Helm-managed secrets
+- [Transparent proxy configuration](https://docs.stormforge.io/docs/guides/proxy-config/): Configure StormForge to work with a transparent proxy
+- [Import data into APM tools](https://docs.stormforge.io/docs/guides/apm_export/): Create a Prometheus scrape job to pipe recommendation data into APM tools
+- [Kustomize export](https://docs.stormforge.io/docs/guides/kustomize-export/): Automate committing Kustomize patches to Git and deploying through CI
+- [Subscribe via AWS Marketplace](https://docs.stormforge.io/docs/guides/aws_marketplace/): Set up pay-as-you-go billing through AWS Marketplace
