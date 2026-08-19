@@ -37,7 +37,7 @@ created: '2026-03-27'
 modified: '2026-05-02'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/stormforge/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
   - aid: stormforge:optimize-live
     name: StormForge Optimize Live
