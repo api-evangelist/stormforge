@@ -30,6 +30,14 @@ tags:
   - DevOps
   - FinOps
   - Kubernetes
+  - Machine-Learning
+  - Resource Management
+  - Rightsizing
+tags_raw:
+  - Cloud Cost Optimization
+  - DevOps
+  - FinOps
+  - Kubernetes
   - Machine Learning
   - Resource Management
   - Rightsizing
@@ -51,6 +59,12 @@ apis:
       StatefulSets, DaemonSets, ReplicaSets, custom CRD workloads, and HPA-managed workloads.
     humanURL: https://www.stormforge.io/optimize-live/
     tags:
+      - Cloud Cost Optimization
+      - FinOps
+      - Kubernetes
+      - Machine-Learning
+      - Rightsizing
+    tags_raw:
       - Cloud Cost Optimization
       - FinOps
       - Kubernetes
