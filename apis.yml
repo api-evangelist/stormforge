@@ -42,7 +42,7 @@ tags:
   - DevOps
   - FinOps
   - Kubernetes
-  - Machine-Learning
+  - Machine Learning
   - Resource Management
   - Rightsizing
 tags_raw:
@@ -53,6 +53,7 @@ tags_raw:
   - Machine Learning
   - Resource Management
   - Rightsizing
+  - Machine-Learning
 created: '2026-03-27'
 modified: '2026-05-02'
 url: >-
@@ -74,7 +75,7 @@ apis:
       - Cloud Cost Optimization
       - FinOps
       - Kubernetes
-      - Machine-Learning
+      - Machine Learning
       - Rightsizing
     tags_raw:
       - Cloud Cost Optimization
@@ -82,6 +83,7 @@ apis:
       - Kubernetes
       - Machine Learning
       - Rightsizing
+      - Machine-Learning
     properties:
       - type: Documentation
         url: https://docs.stormforge.io/docs/
