@@ -117,6 +117,10 @@ apis:
       - type: Homebrew
         url: https://github.com/thestormforge/homebrew-tap
 common:
+  - type: Plans
+    url: plans/stormforge-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/stormforge-rate-limits.yml
   - type: DomainSecurity
     url: security/stormforge-domain-security.yml
   - type: LinkedIn
